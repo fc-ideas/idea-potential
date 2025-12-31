@@ -2,11 +2,17 @@
 # Designing Paradigms for Long-Term Progress
 ### Research as Reachability: A Functorial Account of Scientific Progress
 
+Plainly: The subtitle frames progress as reachability in idea space.
+
 ## Abstract
 
-Here we offer an account of why some research ideas keep producing new work while others stall. We treats each idea as something that can be transformed in many ways, and asks how many strong, valid follow-on ideas those transformations can reach. The framework also treats human input as central: people set the goals, build the systems, and interpret the results. The result is a structured way to compare paradigms and to explain why some are easier to extend, reuse, and improve over time.
+Plainly: This abstract states the paper's main idea and purpose.
+
+Here we offer an account of why some research ideas keep producing new work while others stall. We treat each idea as something that can be transformed in many ways, and ask how many strong, valid follow-on ideas those transformations can reach. The framework also treats human input as central: people set the goals, build the systems, and interpret the results. The result is a structured way to compare paradigms and to explain why some are easier to extend, reuse, and improve over time.
 
 ## 1. Introduction: Beyond Performance and Expressivity
+
+Plainly: This section motivates why fertility matters beyond accuracy or optimality.
 
 Scientific progress is uneven. Some research ideas rapidly generate entire ecosystems of methods, diagnostics, and applications, while others -- despite elegance or strong theoretical guarantees -- lead to narrow or short-lived lines of work. Scientific history repeatedly shows that paradigms succeed not merely because they are correct or optimal, but because they are *fertile*. Fertility manifests as:
 
@@ -32,18 +38,24 @@ We show that many familiar machine-learning techniques arise from a small set of
 
 ## 2. Assumptions and Semantic Base
 
+Plainly: This section states the modeling assumptions and defines the semantic scaffold.
+
 ### 2.1 Critical assumptions
+
+Plainly: This subsection lists the conditions under which the framework applies.
 
 The framework is conditioned on the following assumptions:
 
-* **Semantic representation**: semantic commitments can be modeled as objects and morphisms in a category $\mathcal{S}$.
-* **Fibered artifacts**: implementable artifacts can be modeled in fibers $\mathcal{C}_s$ indexed by $\mathcal{S}$.
-* **Typed transformations**: admissible transformations (including rewrites) are typed and composable in a way that supports reachability.
-* **Validity and quality**: a domain-specific validity predicate $\mathrm{Valid}$ and quality functional $\mathcal{Q}$ are defined and stable across the comparisons being made.
-* **Comparability**: claims about relative generativity only compare paradigms under the same choices of $\mathbb{F}$, $\mathrm{Valid}$, $\mathcal{Q}$, and $\mu$.
-* **Human channels**: specification, realization, and interpretation can be operationalized for the domain; otherwise human-conditioned reachability is out of scope.
+* **Semantic representation**: semantic commitments can be modeled as objects and morphisms in a category $\mathcal{S}$. Plainly: we can describe the meaning, constraints, and goals of a task in a formal way and describe how those meanings change.
+* **Fibered artifacts**: implementable artifacts can be modeled in fibers $\mathcal{C}_s$ indexed by $\mathcal{S}$. Plainly: for each set of assumptions, there is a matching set of concrete models and methods that belong with it.
+* **Typed transformations**: admissible transformations (including rewrites) are typed and composable in a way that supports reachability. Plainly: only certain moves are allowed between ideas, and we can chain them without ambiguity.
+* **Validity and quality**: a domain-specific validity predicate $\mathrm{Valid}$ and quality functional $\mathcal{Q}$ are defined and stable across the comparisons being made. Plainly: we agree on what counts as correct and what counts as good, and those rules do not change mid-comparison.
+* **Comparability**: claims about relative generativity only compare paradigms under the same choices of $\mathbb{F}$, $\mathrm{Valid}$, $\mathcal{Q}$, and $\mu$. Plainly: we do not compare systems using different rules, scoring functions, or measures.
+* **Human channels**: specification, realization, and interpretation can be operationalized for the domain; otherwise human-conditioned reachability is out of scope. Plainly: we can model how people set goals, build systems, and interpret outputs; if we cannot, we do not claim human-steered reachability.
 
 ### 2.2 Semantic base and fibered idea space
+
+Plainly: This subsection defines the semantic layer and the artifacts attached to it.
 
 Let $\mathcal{S}$ be a category of semantic commitments (tasks, invariances, constraints, causal assumptions, correctness criteria). For each $s \in \mathrm{Ob}(\mathcal{S})$, define a fiber $\mathcal{C}_s$ of implementable artifacts consistent with $s$. A change of semantics $u:s\to s'$ induces a reindexing functor:
 
@@ -59,6 +71,8 @@ Research progress corresponds to typed transformations within and across fibers.
 
 ## 3. Generative Transformations and Reachability
 
+Plainly: This section defines the allowed moves and how reachability is computed.
+
 Let $\mathbb{F}$ be the set of admissible transformations, with typed domains and codomains. We distinguish:
 
 * **Within-fiber endofunctors** $F_s:\mathcal{C}_s \to \mathcal{C}_s$ (implementation-level moves).
@@ -69,6 +83,8 @@ Let $\langle \mathbb{F} \rangle$ denote well-typed compositions generated by the
 
 ### 3.1 Reachability
 
+Plainly: This subsection defines which ideas count as reachable from a starting idea.
+
 For an idea $X\in\mathcal{C}_s$, define the reachable set across all fibers:
 
 $$\mathrm{Reach}_{\mathbb{F}}(X) := \{\, Y \in \mathrm{Ob}(\bigsqcup_{s}\mathcal{C}_s) \mid \exists F \in \langle \mathbb{F} \rangle \text{ such that } F(X) \cong Y \,\}$$
@@ -77,6 +93,8 @@ These are the ideas systematically derivable from $X$ by admissible research mov
 
 ### 3.2 Quality and validity-aware reachability
 
+Plainly: This subsection filters reachability to ideas that are both good and valid.
+
 Let $\mathcal{Q}:\bigsqcup_s \mathcal{C}_s \to \mathbb{R}\cup\{-\infty\}$ be a quality functional and let $\tau$ be a threshold. Let $\mathrm{Valid}:\bigsqcup_s \mathcal{C}_s\to\mathbf{Bool}$ capture semantic validity (soundness, calibration, constraint satisfaction). Define:
 
 $$\mathrm{Reach}_{\mathbb{F}}^{\tau}(X) := \{\, Y \in \mathrm{Reach}_{\mathbb{F}}(X) \mid \mathcal{Q}(Y) \ge \tau \ \wedge\ \mathrm{Valid}(Y) \,\}$$
@@ -84,6 +102,8 @@ $$\mathrm{Reach}_{\mathbb{F}}^{\tau}(X) := \{\, Y \in \mathrm{Reach}_{\mathbb{F}
 This ensures generativity is measured on a valid, semantically constrained subspace.
 
 ### 3.3 Generative potential
+
+Plainly: This subsection defines generative potential as the measured size of the valid reachable set.
 
 The generative potential of $X$ relative to $\mathbb{F}$ and $\tau$ is:
 
@@ -94,6 +114,8 @@ where $\mu$ is a measure on subsets of $\bigsqcup_s \mathrm{Ob}(\mathcal{C}_s)$ 
 Comparisons across paradigms are meaningful only when $\mathbb{F}$, $\mathrm{Valid}$, $\mathcal{Q}$, and $\mu$ are held fixed.
 
 ### 3.4 Depth-sensitive refinement
+
+Plainly: This subsection gives more weight to short, reliable chains than long, fragile ones.
 
 Let $\langle \mathbb{F} \rangle_{\le k}$ denote compositions of length at most $k$, and define $\mathrm{Reach}_{\mathbb{F},k}^{\tau}(X)$ analogously. A depth-sensitive version is:
 
@@ -106,6 +128,8 @@ with $w_k$ a decay weight.
 ---
 
 ## 4. Human Coupling as Specification, Realization, Interpretation
+
+Plainly: This section explains how people set goals, build systems, and interpret results.
 
 We treat human interaction as three distinct channels rather than a single "nudging" interface:
 
@@ -127,9 +151,13 @@ A paradigm is practically generative only if it supports the human channels requ
 
 ## 5. Algebraic Structure of Research Transformations
 
+Plainly: This section classifies transformations by algebraic behavior like idempotence and commutation.
+
 To move from description to diagnosis, we classify transformations by their algebraic properties. Most of these maps are parameterized, so claims such as idempotence, commutation, and adjunction are stated up to natural isomorphism and become strict only in idealized or limiting regimes. In discrete and symbolic settings, rewrite systems and search operators play the role of transformations, so non-commutativity can be a design choice rather than a defect.
 
 ### 5.1 Idempotent Functors
+
+Plainly: This subsection explains when repeating a transformation no longer changes anything.
 
 Abstraction and quotient-like operations are idempotent: once applied, reapplication yields no further change. This identifies *stabilization points* in research pipelines. A functor $F$ is idempotent if $F\circ F \cong F$.
 
@@ -145,6 +173,8 @@ Idempotent in effect (common in ML, not exact):
 * **Data augmentation** is idempotent if it closes a dataset under a group action, but only "in distribution" when augmentation is stochastic.
 
 ### 5.2 Commutation and Non-Commutation
+
+Plainly: This subsection explains when order matters and why that is informative.
 
 Most generative transformations do not commute. Order matters, and this is not a nuisance but a source of information: non-commutativity exposes where architectural choices constrain optimization, or where sparsity interacts destructively with auxiliary objectives. In logic, Bayesian inference, or evolutionary search, non-commutativity can be a deliberate way to preserve guarantees or exploration pressure. When commutation does hold, it is often only after a parameter transport, captured as a natural transformation $F\circ G \Rightarrow G\circ F$.
 
@@ -163,6 +193,8 @@ Strongly non-commuting (order matters in practice and concept):
 
 ### 5.3 Adjunctions as Design Signals
 
+Plainly: This subsection highlights transformation pairs that fit together by design.
+
 Adjunctions identify paradigms where added structure is both universal and legible. Paradigms lacking such adjunctions tend to resist systematic extension.
 
 Clean adjunctions you can state without overpromising:
@@ -174,6 +206,8 @@ Clean adjunctions you can state without overpromising:
 ---
 
 ## 6. A Minimal Generating Set of Research Operations
+
+Plainly: This section lists the smallest set of generator types used to compare paradigms.
 
 A minimal basis for comparing connectionist, symbolic, Bayesian, and evolutionary paradigms expands the generator set to cover inference and theory revision:
 
@@ -206,6 +240,8 @@ Derived families (examples):
 
 ## 7. Case Study: Neural Networks vs. Kernel Machines
 
+Plainly: This section compares two paradigms using the framework's criteria.
+
 This comparison is illustrative rather than definitive. It conditions on shared $\mathcal{Q}$ and $\mathrm{Valid}$ choices and on the dominant cost model used in practice.
 
 Neural networks and kernel machines are both expressive, but they activate different parts of $\mathbb{G}^*$ and scale under different cost models.
@@ -228,9 +264,13 @@ On this view, neural networks are not universally superior; they are fertile und
 
 ## 8. Applying the Diagnostic to Neurosymbolic Paradigms
 
+Plainly: This section applies the diagnostic to several neurosymbolic families.
+
 We treat "neurosymbolic" as a family of paradigms, then score each family along the expanded generators $\mathbb{G}^* = \{\mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}, \mathbf{I}, \mathbf{R}\}$ and the human channels $(\mathrm{Spec}, \mathrm{Realize}, \mathrm{Explain})$. The goal is to identify paradigm-hubs versus endpoints and to diagnose what is missing for higher generative potential, conditional on explicit validity criteria and cost models.
 
-### 8.1 The checklist (paradigm-neutral)
+### 8.1 The checklist
+
+Plainly: This subsection gives a quick checklist for judging a neurosymbolic candidate.
 
 The checklist is qualitative and assumes explicit choices of $\mathbb{F}$, $\mathcal{Q}$, $\mathrm{Valid}$, and cost model.
 
@@ -243,6 +283,8 @@ A neurosymbolic candidate is promising if it has:
 * **Scaling mode**: a clear cost model for $\mathbf{S}$ (search, inference, linear algebra) with predictable returns.
 
 ### 8.2 Differentiable logic / soft unification (logic as a layer)
+
+Plainly: This subsection evaluates differentiable logic systems and their gaps.
 
 **Representative idea-state**: a neural model with a differentiable logic module (soft unification, fuzzy logic, differentiable forward chaining), trained end-to-end.
 
@@ -276,6 +318,8 @@ Introduce an explicit abstraction and revision loop: learn in the soft space, pr
 
 ### 8.3 Program induction / neural-guided program search
 
+Plainly: This subsection evaluates program search systems and their bottlenecks.
+
 **Representative idea-state**: a program space with search (enumeration, MCTS, constraint solving), guided by a neural scorer; a verifier checks correctness.
 
 **Generator coverage**
@@ -305,6 +349,8 @@ Introduce an explicit abstraction and revision loop: learn in the soft space, pr
 Make abstraction explicit and algebraic: treat sketches and macros as quotient objects, with idempotent compression into reusable higher-level constructs. This turns search into search in a learned abstraction lattice.
 
 ### 8.4 Constraint-based learning (hard constraints + neural components)
+
+Plainly: This subsection evaluates constraint-based hybrids and their main weaknesses.
 
 **Representative idea-state**: neural models trained subject to constraints (SAT/SMT, structured prediction constraints, or differentiable proxies).
 
@@ -338,6 +384,8 @@ Turn constraints into typed interfaces and local operators, not monolithic penal
 
 ### 8.5 LLM tool-use agents (symbolic tools + neural controller)
 
+Plainly: This subsection evaluates tool-using agents and where they fall short today.
+
 **Representative idea-state**: an LLM controller that calls external tools (search, solver, DB, theorem prover) with a protocol and memory.
 
 **Generator coverage**
@@ -370,6 +418,8 @@ Skill extraction as quotienting: learn policies, then compress to symbolic or ty
 
 ### 8.6 Cross-cutting diagnosis
 
+Plainly: This subsection summarizes the common gaps across neurosymbolic families.
+
 Across the four families as typically implemented today, the following gaps recur under the assumptions above:
 
 1. **Weak $\mathbf{Q}$ and $\mathbf{R}$**: symbolic structure is injected but rarely extracted or revised back out canonically, so reusable abstractions do not accumulate.
@@ -377,6 +427,8 @@ Across the four families as typically implemented today, the following gaps recu
 3. **Scaling is adversarial**: verification, search, and constraint propagation often scale worse than neural components, weakening the role of $\mathbf{S}$ as a connector.
 
 ### 8.7 Research agenda (framed in the diagnostic)
+
+Plainly: This subsection proposes concrete improvement directions.
 
 If the goal is to select promising paradigms and identify improvement directions, three high-yield bets emerge:
 
@@ -387,6 +439,8 @@ If the goal is to select promising paradigms and identify improvement directions
 ---
 
 ## 9. Paradigm Selection and Diagnosis
+
+Plainly: This section lists the questions to apply the diagnostic in practice.
 
 The framework is intended as a **tool for future research**, not post hoc explanation.
 
@@ -413,6 +467,8 @@ This reframes "what is lacking?" into a precise question about missing generator
 
 ## 10. Direction of Study
 
+Plainly: This section suggests how to design future paradigms using the framework.
+
 The proposed direction is not to search blindly for new models, but to:
 
 * design paradigms with explicit internal interfaces and cross-fiber translations,
@@ -426,11 +482,15 @@ Progress, in this view, comes from **engineering the idea space** to be navigabl
 
 ## 11. Conclusion
 
+Plainly: This section restates the core takeaway.
+
 We argue that the most promising research paradigms are those with high generative potential: paradigms that support composable generators across implementation, inference, and theory revision; preserve semantic validity; and provide bidirectional translations between formal artifacts and human-usable structure. The framework presented here offers a way to identify such paradigms early, diagnose stagnation, and guide the design of future systems.
 
 The lesson is to build systems that preserve validity while expanding the space of reachable, interpretable ideas.
 
 ## 12. Residual Uncertainty
+
+Plainly: This section lists limitations that remain even if the framework is accepted.
 
 * The framework depends on the choice of $\mathcal{Q}$, $\mathrm{Valid}$, and $\mu$, and different choices can reverse comparative conclusions.
 * Cross-fiber translations are assumed to exist and be principled; many domains lack such mappings in practice.
