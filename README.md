@@ -2,50 +2,42 @@
 # Designing Paradigms for Long-Term Progress
 ### Research as Reachability: A Functorial Account of Scientific Progress
 
-## 1. Introduction
+## Abstract
 
-Scientific progress is uneven. Some research ideas rapidly generate entire ecosystems of methods, diagnostics, and applications, while others—despite elegance or strong theoretical guarantees—lead to narrow or short-lived lines of work. This difference is rarely captured by standard evaluation criteria such as performance benchmarks, expressivity, or asymptotic optimality. Yet, in practice, it is this capacity to *generate further ideas* that determines whether a paradigm reshapes a field.
+This paper proposes a structural account of scientific progress based on the generative potential of research ideas. We model ideas as objects in an abstract space and methodological moves as composable transformations, making reachability the central diagnostic for long-term fertility. The framework treats human understanding and steering as first-class, highlighting when paradigms expose reusable generators, stable abstractions, and legible interfaces. Using machine learning as a case study, we argue that paradigms succeed when they make the idea space navigable, and we provide criteria for selecting and diagnosing emerging approaches.
 
-Machine learning provides a striking example. Kernel methods and neural networks are comparable in expressive power under broad conditions, yet only neural networks have sustained decades of compounding progress. The usual explanations—data availability, compute, or optimization tricks—describe *what happened*, but not *why certain paradigms remain fertile while others stagnate*. What is missing is a structural account of generativity.
+## 1. Introduction: Beyond Performance and Expressivity
 
-This white paper proposes such an account. We introduce a formal framework in which research ideas are treated as objects in an abstract space, and methodological moves—regularization, architectural bias, auxiliary objectives, abstraction, scaling—are treated as composable transformations. Within this framework, the central quantity is **generative potential**: the measure of high-quality ideas reachable from a given idea through admissible compositions of transformations.
-
-A key aspect of the framework is the explicit inclusion of the human researcher. Generative progress depends not only on what transformations are possible, but on which transformations are legible, predictable, and steerable by humans. We therefore treat human understanding and intervention as first-class components, formalizing the bidirectional coupling between ideas and human cognition.
-
-The goal of this work is not retrospective explanation alone. Our primary aim is prospective: to provide a diagnostic for evaluating emerging paradigms, identifying why certain approaches stall, and clarifying what is missing when a paradigm fails to scale or generalize. We show that many familiar machine-learning techniques arise from a small set of primitive generators, and that successful paradigms are those that expose these generators cleanly, support their composition, and admit stable abstraction mechanisms.
-
-Using neural networks and kernel machines as a case study, and extending the analysis to neurosymbolic systems, we argue that progress is driven less by isolated breakthroughs than by the structure of the idea space itself. Paradigms succeed when they make that space navigable—by humans as much as by algorithms.
-
-Below is a **rewritten, consolidated white paper** that incorporates the *minimal generating set*, the *idempotence/adjunction analysis*, and—crucially—**reframes the entire framework as a methodology for paradigm selection and diagnosis**, not just explanation. The tone is deliberately forward-looking and programmatic.
-
----
-
-## 1. Motivation: Beyond Performance and Expressivity
-
-Scientific history repeatedly shows that paradigms succeed not merely because they are correct or optimal, but because they are *fertile*. Fertility manifests as:
+Scientific progress is uneven. Some research ideas rapidly generate entire ecosystems of methods, diagnostics, and applications, while others—despite elegance or strong theoretical guarantees—lead to narrow or short-lived lines of work. Scientific history repeatedly shows that paradigms succeed not merely because they are correct or optimal, but because they are *fertile*. Fertility manifests as:
 
 * many viable extensions,
 * reusable conceptual tools,
 * diagnostics that guide exploration,
 * and interfaces that allow humans to steer development.
 
-Current evaluation criteria—performance benchmarks, asymptotic guarantees, expressivity classes—do not capture these properties. As a result, promising paradigms are often indistinguishable from dead ends until years later.
+This difference is rarely captured by standard evaluation criteria such as performance benchmarks, expressivity, or asymptotic optimality. As a result, promising paradigms are often indistinguishable from dead ends until years later. Machine learning provides a striking example. Kernel methods and neural networks are comparable in expressive power under broad conditions, yet only neural networks have sustained decades of compounding progress. The usual explanations—data availability, compute, or optimization tricks—describe *what happened*, but not *why certain paradigms remain fertile while others stagnate*. What is missing is a structural account of generativity.
 
-The goal of this work is to provide a **structural, formal method** for:
+This white paper proposes such an account. We introduce a formal framework in which research ideas are treated as objects in an abstract space, and methodological moves—regularization, architectural bias, auxiliary objectives, abstraction, scaling—are treated as composable transformations. Within this framework, the central quantity is **generative potential**: the measure of high-quality ideas reachable from a given idea through admissible compositions of transformations.
+
+A key aspect of the framework is the explicit inclusion of the human researcher. Generative progress depends not only on what transformations are possible, but on which transformations are legible, predictable, and steerable by humans. We therefore treat human understanding and intervention as first-class components, formalizing the bidirectional coupling between ideas and human cognition.
+
+The goal of this work is not retrospective explanation alone. Our primary aim is prospective: to provide a **structural, formal method** for:
 
 1. selecting paradigm candidates with high long-term potential, and
 2. diagnosing what is missing when a paradigm fails to generate progress.
+
+We show that many familiar machine-learning techniques arise from a small set of primitive generators, and that successful paradigms are those that expose these generators cleanly, support their composition, and admit stable abstraction mechanisms. Using neural networks and kernel machines as a case study, and extending the analysis to neurosymbolic systems, we argue that progress is driven less by isolated breakthroughs than by the structure of the idea space itself. Paradigms succeed when they make that space navigable—by humans as much as by algorithms.
 
 ---
 
 ## 2. Idea Space and Generative Transformations
 
-Let (\mathcal{C}) be a category of *idea-states*:
-[
+Let $\mathcal{C}$ be a category of *idea-states*:
+$$
 X = (\text{model}, \text{representation}, \text{objective}, \text{data}, \text{training}, \text{evaluation})
-]
+$$
 
-Research progress corresponds to applying **generative transformations**, formalized as endofunctors (F:\mathcal{C}\to\mathcal{C}). These capture operations such as adding regularization, changing architecture, introducing auxiliary objectives, or moving to a different level of abstraction.
+Research progress corresponds to applying **generative transformations**, formalized as endofunctors $F:\mathcal{C}\to\mathcal{C}$. These capture operations such as adding regularization, changing architecture, introducing auxiliary objectives, or moving to a different level of abstraction.
 
 The central notion is **reachability**: which high-quality ideas can be obtained from a given one by composing admissible functors.
 
@@ -53,20 +45,79 @@ The central notion is **reachability**: which high-quality ideas can be obtained
 
 ## 3. Generative Potential as Reachability
 
-Let (\mathbb{F}\subseteq\mathrm{End}(\mathcal{C})) be the set of admissible generative functors. The generative potential of an idea (X) is defined as a measure over its reachable set under well-typed compositions of (\mathbb{F}), possibly weighted by depth and quality thresholds.
+Let $\mathbb{F}\subseteq\mathrm{End}(\mathcal{C})$ be the set of admissible generative functors. Each $F\in\mathbb{F}$ is typed, with domain a (possibly proper) subcategory $\mathcal{C}_F\subseteq\mathcal{C}$, so composition is partial but well-defined when types match. Let $\langle \mathbb{F} \rangle$ denote the free monoid generated by $\mathbb{F}$ under well-typed composition.
 
-Intuitively:
+### 3.1 Reachability
 
-* Low generative potential paradigms saturate quickly.
-* High generative potential paradigms support long, productive chains of refinement.
+For an idea $X\in\mathcal{C}$, define the reachable set:
 
-This definition shifts focus from *what an idea achieves now* to *what it enables next*.
+$$
+\mathrm{Reach}_{\mathbb{F}}(X)
+:=
+\{\, Y \in \mathrm{Ob}(\mathcal{C}) \mid \exists F \in \langle \mathbb{F} \rangle \text{ such that } F(X) \cong Y \,\}.
+$$
+
+These are the ideas systematically derivable from $X$ by admissible research moves.
+
+### 3.2 Quality-aware reachability
+
+Let $\mathcal{Q}:\mathcal{C}\to\mathbb{R}\cup\{-\infty\}$ be a quality functional and let $\tau$ be a threshold. Define:
+
+$$
+\mathrm{Reach}_{\mathbb{F}}^{\tau}(X)
+:=
+\{\, Y \in \mathrm{Reach}_{\mathbb{F}}(X) \mid \mathcal{Q}(Y) \ge \tau \,\}.
+$$
+
+### 3.3 Generative potential
+
+The generative potential of $X$ relative to $\mathbb{F}$ and $\tau$ is:
+
+$$
+\mathrm{GP}_{\mathbb{F}}^{\tau}(X)
+:=
+\mu\!\left(\mathrm{Reach}_{\mathbb{F}}^{\tau}(X)\right),
+$$
+
+where $\mu$ is a measure on subsets of $\mathrm{Ob}(\mathcal{C})$ (cardinality, growth rate by depth, volume under an embedding, or entropy over equivalence classes).
+
+### 3.4 Depth-sensitive refinement
+
+Let $\langle \mathbb{F} \rangle_{\le k}$ denote compositions of length at most $k$, and define $\mathrm{Reach}_{\mathbb{F},k}^{\tau}(X)$ analogously. A depth-sensitive version is:
+
+$$
+\mathrm{GP}_{\mathbb{F}}^{\tau}(X)
+=
+\sum_{k=0}^{\infty} w_k \, \mu\!\left(\mathrm{Reach}_{\mathbb{F},k}^{\tau}(X)\right),
+$$
+
+with $w_k$ a decay weight.
+
+### 3.5 Human-conditioned generative potential
+
+Let $\mathrm{Legible}:\mathcal{C}\to\mathcal{H}$ and $\mathrm{Inject}:\mathcal{H}\to\mathcal{C}$. Define the human-accessible functor set as those that factor through human cognition up to natural isomorphism:
+
+$$
+\mathbb{F}_h
+:=
+\{\, F \in \mathbb{F} \mid \exists G:\mathcal{H}\to\mathcal{H} \text{ with } F \cong \mathrm{Inject}\circ G \circ \mathrm{Legible} \,\}.
+$$
+
+Then the effective, human-conditioned generative potential is:
+
+$$
+\mathrm{GP}_{\mathbb{F}}^{\tau}(X \mid \mathcal{H})
+:=
+\mu\!\left(\mathrm{Reach}_{\mathbb{F}_h}^{\tau}(X)\right).
+$$
+
+> Generative potential is the measure of the set of high-quality ideas reachable from an idea via admissible compositions of generative transformations, optionally conditioned on human legibility and steerability.
 
 ---
 
 ## 4. The Human as a First-Class Participant
 
-We introduce a category (\mathcal{H}) of human cognitive states. Functors between (\mathcal{C}) and (\mathcal{H}) model legibility, predictability, prior injection, and steering.
+We introduce a category $\mathcal{H}$ of human cognitive states. Functors between $\mathcal{C}$ and $\mathcal{H}$ model legibility, predictability, prior injection, and steering.
 
 A paradigm is practically generative only if:
 
@@ -79,19 +130,49 @@ Successful paradigms exhibit adjunction-like structure between idea-space and hu
 
 ## 5. Algebraic Structure of Research Functors
 
-To move from description to diagnosis, we classify functors by their algebraic properties.
+To move from description to diagnosis, we classify functors by their algebraic properties. Most of these functors are parameterized, so claims such as idempotence, commutation, and adjunction are stated up to natural isomorphism and become strict only in idealized or limiting regimes.
 
 ### 5.1 Idempotent Functors
 
-Abstraction and quotient-like operations are idempotent: once applied, reapplication yields no further change. This identifies *stabilization points* in research pipelines.
+Abstraction and quotient-like operations are idempotent: once applied, reapplication yields no further change. This identifies *stabilization points* in research pipelines. A functor $F$ is idempotent if $F\circ F \cong F$.
 
-### 5.2 Non-Commutativity as Information
+Strict or canonical cases:
 
-Most generative functors do not commute. Order matters, and this is not a nuisance but a source of information: non-commutativity exposes where architectural choices constrain optimization, or where sparsity interacts destructively with auxiliary objectives.
+* **Abstraction / quotient reflectors.** If $Q:\mathcal{C}\to\mathcal{A}$ is a left adjoint to an inclusion $U:\mathcal{A}\hookrightarrow\mathcal{C}$, then $R = U\circ Q$ is a reflector and $R\circ R \cong R$.
+* **Projection to constrained subspaces.** True projections (top-$k$ pruning with deterministic tie-breaks, rank-$k$ truncation) are idempotent and can be modeled as reflectors onto a subcategory.
+
+Idempotent in effect (common in ML, not exact):
+
+* **Sparsity induction** via $L_1$ penalties is an update map, not a projection; idempotent only when it converges to a fixed projection.
+* **Capacity control** via early stopping is not idempotent, whereas strict pruning is.
+* **Data augmentation** is idempotent if it closes a dataset under a group action, but only "in distribution" when augmentation is stochastic.
+
+### 5.2 Commutation and Non-Commutation
+
+Most generative functors do not commute. Order matters, and this is not a nuisance but a source of information: non-commutativity exposes where architectural choices constrain optimization, or where sparsity interacts destructively with auxiliary objectives. When commutation does hold, it is often only after a parameter transport, captured as a natural transformation $F\circ G \Rightarrow G\circ F$.
+
+Frequently commuting (up to reparameterization):
+
+* **Regularization and scaling** commute if regularization strength is rescaled with width, batch size, or learning rate.
+* **Augmentation and regularization** often commute up to loss reweighting.
+* **Auxiliary objectives** commute when losses are additive and share a representation, but not when they reshape architecture or sampling.
+
+Strongly non-commuting (order matters in practice and concept):
+
+* **Abstraction vs. optimization shaping** changes the dynamics themselves.
+* **Inductive bias injection vs. manifold fitting** can redefine the effective geometry.
+* **Sparsity vs. auxiliary objectives** can destroy pretext signals if applied too early.
+* **Capacity control vs. scaling** differs except in narrow regimes (e.g., lottery ticket assumptions).
 
 ### 5.3 Adjunctions as Design Signals
 
-Adjunctions—especially abstraction/inclusion and structure-injection/forgetting—identify paradigms where added structure is both universal and legible. Paradigms lacking such adjunctions tend to resist systematic extension.
+Adjunctions identify paradigms where added structure is both universal and legible. Paradigms lacking such adjunctions tend to resist systematic extension.
+
+Clean adjunctions you can state without overpromising:
+
+* **Abstraction / concretization.** $Q \dashv U$ for abstraction and inclusion; $U\circ Q$ is idempotent and gives the best approximation in the abstract subcategory.
+* **Augmentation / invariants (group actions).** Orbit-closure behaves like a free construction (left adjoint) to taking invariants or quotients, when modeled as $\mathcal{G}$-objects.
+* **Structure injection / forgetting.** Many inductive biases admit a free construction left adjoint to a forgetful functor (e.g., equivariant lifts), though this holds only when a universal property exists.
 
 ---
 
@@ -99,22 +180,28 @@ Adjunctions—especially abstraction/inclusion and structure-injection/forgettin
 
 A key result is that most known machine learning transformations can be generated from a small set of primitives:
 
-[
-\mathbb{G} = { \mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q} }
-]
+$$
+\mathbb{G} = \{ \mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q} \}
+$$
 
 Where:
 
-* (\mathbf{P}): parameterization / architecture constructors
-* (\mathbf{L}): objective / loss constructors
-* (\mathbf{D}): data and distribution constructors
-* (\mathbf{O}): optimization and dynamics constructors
-* (\mathbf{S}): scaling constructors
-* (\mathbf{Q}): abstraction / quotient constructors
+* $\mathbf{P}$: parameterization / architecture constructors
+* $\mathbf{L}$: objective / loss constructors
+* $\mathbf{D}$: data and distribution constructors
+* $\mathbf{O}$: optimization and dynamics constructors
+* $\mathbf{S}$: scaling constructors
+* $\mathbf{Q}$: abstraction / quotient constructors
 
 All standard techniques—regularization, sparsity, auxiliary tasks, manifold learning, augmentation, optimization tricks—are compositions of these generators.
 
 This collapse is crucial: it gives a **basis** against which paradigms can be compared.
+
+Derived families (examples):
+
+* **Regularization** as $\mathbf{L}$, **auxiliary objectives** as $\mathbf{L}$, **inductive bias injection** as $\mathbf{P}$.
+* **Data augmentation** as $\mathbf{D}$, **optimization shaping** as $\mathbf{O}$, **scaling** as $\mathbf{S}$, **abstraction** as $\mathbf{Q}$.
+* **Manifold fitting** as $\mathbf{P}\circ\mathbf{D}\circ\mathbf{L}$; **sparsity/capacity** as projections (idempotent) or as $\mathbf{P}$ with $\mathbf{L}$ and $\mathbf{O}$ when implemented via penalties and dynamics.
 
 ---
 
@@ -122,7 +209,7 @@ This collapse is crucial: it gives a **basis** against which paradigms can be co
 
 Neural networks outperform kernel machines in generative potential because:
 
-* Their reachable set under (\mathbb{G}) grows combinatorially.
+* Their reachable set under $\mathbb{G}$ grows combinatorially.
 * Nearly all generators apply meaningfully and compose.
 * They support abstraction and internal interfaces.
 * They admit strong human–idea adjunctions.
@@ -139,7 +226,7 @@ The framework is intended as a **tool for future research**, not post hoc explan
 Given a candidate paradigm, one should ask:
 
 1. **Generator coverage**
-   Which of (\mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}) apply non-trivially?
+   Which of $\mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}$ apply non-trivially?
 
 2. **Composability**
    Do these generators compose deeply, or do they interfere?
@@ -177,5 +264,3 @@ We argue that the most promising research paradigms are those with high generati
 The lesson from neural networks is not “use gradients,” but **build ideas that humans can repeatedly transform, understand, and extend**.
 
 ---
-
-
