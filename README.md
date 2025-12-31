@@ -1,10 +1,10 @@
 
 # Designing Paradigms for Long-Term Progress
-### Research as Reachability: A Functorial Account of Scientific Progress
+### Research as Reachability: A Functorial Account of Scientific Progress
 
 ## Abstract
 
-This paper proposes a paradigm-neutral structural account of scientific progress based on the generative potential of research ideas. We model semantic commitments as a base category $\mathcal{S}$ and implementable artifacts as fibers $\mathcal{C}_s$, with transformations both within and across fibers. Generative potential is defined as reachability of valid, high-quality ideas under typed compositions of generators, expanded to include inference and theory revision. The framework treats human specification, realization, and interpretation as first-class, and provides criteria for selecting and diagnosing emerging paradigms without privileging any single learning style.
+This paper offers a plain-language account of why some research ideas keep producing new work while others stall. It treats each idea as something that can be transformed in many ways, and asks how many strong, valid follow-on ideas those transformations can reach. The framework also treats human input as central: people set the goals, build the systems, and interpret the results. The result is a structured way to compare paradigms and to explain why some are easier to extend, reuse, and improve over time.
 
 ## 1. Introduction: Beyond Performance and Expressivity
 
@@ -15,22 +15,35 @@ Scientific progress is uneven. Some research ideas rapidly generate entire ecosy
 * diagnostics that guide exploration,
 * and interfaces that allow humans to steer development.
 
-This difference is rarely captured by standard evaluation criteria such as performance benchmarks, expressivity, or asymptotic optimality. As a result, promising paradigms are often indistinguishable from dead ends until years later. Machine learning provides a striking example. Kernel methods and neural networks are comparable in expressive power under broad conditions, yet only neural networks have sustained decades of compounding progress. The usual explanations -- data availability, compute, or optimization tricks -- describe *what happened*, but not *why certain paradigms remain fertile while others stagnate*. What is missing is a structural account of generativity that does not assume a single learning style.
+This difference is rarely captured by standard evaluation criteria such as performance benchmarks, expressivity, or asymptotic optimality. As a result, promising paradigms are often indistinguishable from dead ends until years later. Machine learning provides a striking example. Kernel methods and neural networks are comparable in expressive power under broad conditions, yet only neural networks have sustained decades of compounding progress under current hardware and data regimes. The usual explanations -- data availability, compute, or optimization tricks -- describe *what happened*, but not *why certain paradigms remain fertile while others stagnate*. What is missing is a structural account of generativity that does not assume a single learning style.
 
-This white paper proposes such an account. We introduce a formal framework in which research ideas are treated as artifacts indexed by semantic commitments, and methodological moves -- including discrete rewrites, inference steps, and theory revision -- are treated as composable transformations. Within this framework, the central quantity is **generative potential**: the measure of high-quality, valid ideas reachable from a given idea through admissible compositions of transformations.
+This white paper proposes such an account. We introduce a formal framework in which research ideas are treated as artifacts indexed by semantic commitments, and methodological moves -- including discrete rewrites, inference steps, and theory revision -- are treated as composable transformations. Within this framework, the central quantity is **generative potential**: the measure of high-quality, valid ideas reachable from a given idea through admissible compositions of transformations, given a fixed validity predicate and quality functional.
 
-A key aspect of the framework is the explicit inclusion of the human researcher. Generative progress depends not only on what transformations are possible, but on which transformations are legible, predictable, and reconstructible by humans. We therefore treat specification, realization, and interpretation as first-class components, formalizing the bidirectional coupling between ideas and human cognition.
+A key aspect of the framework is the explicit inclusion of the human researcher. Generative progress depends not only on what transformations are possible, but on which transformations are legible, predictable, and reconstructible by humans. We therefore treat specification, realization, and interpretation as first-class components, formalizing the bidirectional coupling between ideas and human cognition when these channels can be modeled.
 
 The goal of this work is not retrospective explanation alone. Our primary aim is prospective: to provide a **structural, formal method** for:
 
 1. selecting paradigm candidates with high long-term potential, and
 2. diagnosing what is missing when a paradigm fails to generate progress.
 
-We show that many familiar machine-learning techniques arise from a small set of primitive generators, and that successful paradigms are those that expose these generators cleanly, support their composition, and admit stable abstraction and revision mechanisms. Using neural networks and kernel machines as a case study, and extending the analysis to neurosymbolic systems, we argue that progress is driven less by isolated breakthroughs than by the structure of the idea space itself. Paradigms succeed when they make that space navigable by humans as much as by algorithms.
+We show that many familiar machine-learning techniques arise from a small set of primitive generators, and that successful paradigms are those that expose these generators cleanly, support their composition, and admit stable abstraction and revision mechanisms. Using neural networks and kernel machines as a case study, and extending the analysis to neurosymbolic systems, we argue that progress is driven less by isolated breakthroughs than by the structure of the idea space itself. Paradigms succeed when they make that space navigable by humans as much as by algorithms, subject to the validity constraints that define the domain.
 
 ---
 
-## 2. Semantic Base and Fibered Idea Space
+## 2. Assumptions and Semantic Base
+
+### 2.1 Critical assumptions
+
+The framework is conditioned on the following assumptions:
+
+* **Semantic representation**: semantic commitments can be modeled as objects and morphisms in a category $\mathcal{S}$.
+* **Fibered artifacts**: implementable artifacts can be modeled in fibers $\mathcal{C}_s$ indexed by $\mathcal{S}$.
+* **Typed transformations**: admissible transformations (including rewrites) are typed and composable in a way that supports reachability.
+* **Validity and quality**: a domain-specific validity predicate $\mathrm{Valid}$ and quality functional $\mathcal{Q}$ are defined and stable across the comparisons being made.
+* **Comparability**: claims about relative generativity only compare paradigms under the same choices of $\mathbb{F}$, $\mathrm{Valid}$, $\mathcal{Q}$, and $\mu$.
+* **Human channels**: specification, realization, and interpretation can be operationalized for the domain; otherwise human-conditioned reachability is out of scope.
+
+### 2.2 Semantic base and fibered idea space
 
 Let $\mathcal{S}$ be a category of semantic commitments (tasks, invariances, constraints, causal assumptions, correctness criteria). For each $s \in \mathrm{Ob}(\mathcal{S})$, define a fiber $\mathcal{C}_s$ of implementable artifacts consistent with $s$. A change of semantics $u:s\to s'$ induces a reindexing functor:
 
@@ -78,6 +91,8 @@ $$\mathrm{GP}_{\mathbb{F}}^{\tau}(X) := \mu\!\left(\mathrm{Reach}_{\mathbb{F}}^{
 
 where $\mu$ is a measure on subsets of $\bigsqcup_s \mathrm{Ob}(\mathcal{C}_s)$ (cardinality, growth rate by depth, volume under an embedding, or entropy over equivalence classes).
 
+Comparisons across paradigms are meaningful only when $\mathbb{F}$, $\mathrm{Valid}$, $\mathcal{Q}$, and $\mu$ are held fixed.
+
 ### 3.4 Depth-sensitive refinement
 
 Let $\langle \mathbb{F} \rangle_{\le k}$ denote compositions of length at most $k$, and define $\mathrm{Reach}_{\mathbb{F},k}^{\tau}(X)$ analogously. A depth-sensitive version is:
@@ -106,7 +121,7 @@ Then the effective, human-conditioned generative potential is:
 
 $$\mathrm{GP}_{\mathbb{F}}^{\tau}(X \mid \mathcal{H}) := \mu\!\left(\mathrm{Reach}_{\mathbb{F}_h}^{\tau}(X)\right)$$
 
-A paradigm is practically generative only if it supports all three human channels with stable, composable interfaces.
+A paradigm is practically generative only if it supports the human channels required by the domain with stable, composable interfaces; otherwise human-conditioned reachability is limited.
 
 ---
 
@@ -160,7 +175,7 @@ Clean adjunctions you can state without overpromising:
 
 ## 6. A Minimal Generating Set of Research Operations
 
-A paradigm-neutral basis expands the generator set to cover inference and theory revision:
+A minimal basis for comparing connectionist, symbolic, Bayesian, and evolutionary paradigms expands the generator set to cover inference and theory revision:
 
 $$\mathbb{G}^* = \{ \mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}, \mathbf{I}, \mathbf{R} \}$$
 
@@ -177,6 +192,8 @@ Where:
 
 All standard techniques are compositions of these generators, but different paradigms activate different subsets.
 
+Minimality here is relative to the chosen modeling of transformations and the scope of paradigms considered.
+
 Derived families (examples):
 
 * **Regularization** as $\mathbf{L}$, **auxiliary objectives** as $\mathbf{L}$, **inductive bias injection** as $\mathbf{P}$.
@@ -188,6 +205,8 @@ Derived families (examples):
 ---
 
 ## 7. Case Study: Neural Networks vs. Kernel Machines
+
+This comparison is illustrative rather than definitive. It conditions on shared $\mathcal{Q}$ and $\mathrm{Valid}$ choices and on the dominant cost model used in practice.
 
 Neural networks and kernel machines are both expressive, but they activate different parts of $\mathbb{G}^*$ and scale under different cost models.
 
@@ -209,9 +228,11 @@ On this view, neural networks are not universally superior; they are fertile und
 
 ## 8. Applying the Diagnostic to Neurosymbolic Paradigms
 
-We treat "neurosymbolic" as a family of paradigms, then score each family along the expanded generators $\mathbb{G}^* = \{\mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}, \mathbf{I}, \mathbf{R}\}$ and the human channels $(\mathrm{Spec}, \mathrm{Realize}, \mathrm{Explain})$. The goal is to identify paradigm-hubs versus endpoints and to diagnose what is missing for higher generative potential.
+We treat "neurosymbolic" as a family of paradigms, then score each family along the expanded generators $\mathbb{G}^* = \{\mathbf{P}, \mathbf{L}, \mathbf{D}, \mathbf{O}, \mathbf{S}, \mathbf{Q}, \mathbf{I}, \mathbf{R}\}$ and the human channels $(\mathrm{Spec}, \mathrm{Realize}, \mathrm{Explain})$. The goal is to identify paradigm-hubs versus endpoints and to diagnose what is missing for higher generative potential, conditional on explicit validity criteria and cost models.
 
 ### 8.1 The checklist (paradigm-neutral)
+
+The checklist is qualitative and assumes explicit choices of $\mathbb{F}$, $\mathcal{Q}$, $\mathrm{Valid}$, and cost model.
 
 A neurosymbolic candidate is promising if it has:
 
@@ -349,11 +370,11 @@ Skill extraction as quotienting: learn policies, then compress to symbolic or ty
 
 ### 8.6 Cross-cutting diagnosis
 
-Across these families, the same structural gaps recur:
+Across the four families as typically implemented today, the following gaps recur under the assumptions above:
 
 1. **Weak $\mathbf{Q}$ and $\mathbf{R}$**: symbolic structure is injected but rarely extracted or revised back out canonically, so reusable abstractions do not accumulate.
 2. **Missing translation loops**: neural-to-symbolic and symbolic-to-neural translations are ad hoc rather than functorial, so cross-fiber reachability is shallow.
-3. **Scaling is adversarial**: verification, search, and constraint propagation scale worse than neural components, breaking the role of $\mathbf{S}$ as a connector.
+3. **Scaling is adversarial**: verification, search, and constraint propagation often scale worse than neural components, weakening the role of $\mathbf{S}$ as a connector.
 
 ### 8.7 Research agenda (framed in the diagnostic)
 
@@ -409,4 +430,9 @@ We argue that the most promising research paradigms are those with high generati
 
 The lesson is not to imitate a specific paradigm, but to build systems that preserve validity while expanding the space of reachable, interpretable ideas.
 
----
+## 12. Residual Uncertainty
+
+* The framework depends on the choice of $\mathcal{Q}$, $\mathrm{Valid}$, and $\mu$, and different choices can reverse comparative conclusions.
+* Cross-fiber translations are assumed to exist and be principled; many domains lack such mappings in practice.
+* Generator coverage and composability are modeled abstractions; real systems may blur or collapse generators in ways the model does not capture.
+* Cost models for scaling change with hardware and infrastructure, which can shift which paradigms appear fertile.
