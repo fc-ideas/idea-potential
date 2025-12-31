@@ -428,7 +428,7 @@ Progress, in this view, comes from **engineering the idea space** to be navigabl
 
 We argue that the most promising research paradigms are those with high generative potential: paradigms that support composable generators across implementation, inference, and theory revision; preserve semantic validity; and provide bidirectional translations between formal artifacts and human-usable structure. The framework presented here offers a way to identify such paradigms early, diagnose stagnation, and guide the design of future systems.
 
-The lesson is not to imitate a specific paradigm, but to build systems that preserve validity while expanding the space of reachable, interpretable ideas.
+The lesson is to build systems that preserve validity while expanding the space of reachable, interpretable ideas.
 
 ## 12. Residual Uncertainty
 
