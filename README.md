@@ -4,7 +4,7 @@
 
 ## Abstract
 
-This paper offers a plain-language account of why some research ideas keep producing new work while others stall. It treats each idea as something that can be transformed in many ways, and asks how many strong, valid follow-on ideas those transformations can reach. The framework also treats human input as central: people set the goals, build the systems, and interpret the results. The result is a structured way to compare paradigms and to explain why some are easier to extend, reuse, and improve over time.
+Here we offer an account of why some research ideas keep producing new work while others stall. We treats each idea as something that can be transformed in many ways, and asks how many strong, valid follow-on ideas those transformations can reach. The framework also treats human input as central: people set the goals, build the systems, and interpret the results. The result is a structured way to compare paradigms and to explain why some are easier to extend, reuse, and improve over time.
 
 ## 1. Introduction: Beyond Performance and Expressivity
 
